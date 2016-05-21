@@ -21,6 +21,10 @@ import java.lang.reflect.Type;
 /**
  *
  * @author Joako
+ * WebServlet Pedir lista de entidades
+ * Pide la lista de todas las entidades del sistema al WebService que realiza la operacion en la base de datos 
+ * No recibe ningun argumento
+ * Retorna un Gson con toda la informacion solicitada
  */
 @WebServlet(name = "PedirListaEntidades", urlPatterns = {"/PedirListaEntidades"})
 public class PedirListaEntidades extends HttpServlet {
@@ -43,7 +47,7 @@ public class PedirListaEntidades extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             List<Entidad> respuesta = buscarEntidadesNombres();
-            Type tipo = new TypeToken<List<Entidad>>(){}.getType();
+            //Type tipo = new TypeToken<List<Entidad>>(){}.getType();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String jsonRespuesta =  gson.toJson(respuesta);
             System.out.println(jsonRespuesta);
@@ -90,7 +94,11 @@ public class PedirListaEntidades extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+/**
+ * Buscar entidades nombres
+ * FUncion que se conecta al WebService para solicitar las entidades en la base de datos
+ * @return Lista de tipo entidad
+ */
     private java.util.List<com.test.servlet.Entidad> buscarEntidadesNombres() {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.

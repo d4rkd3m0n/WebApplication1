@@ -5,31 +5,34 @@
  */
 package com.test.servlet;
 
-import com.test.servlet.AsignarTurnos_Service;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.ws.WebServiceRef;
-
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+//import java.lang.ProcessBuilder.Redirect.Type;
+import java.lang.reflect.Type;
 /**
  *
+ * 
  * @author Joako
- * WebServlet Login
- * WebServlet que se conecta con un metodo del WebService que verifica los datos ingresados
- * Recibe como parametro el nombre de usuario y contraseña
- * Retorna un Gson
+ * WebServlet Pedir servicio de sede
+ * Solicita al web service relacionado a la base de datos los servicios asociados a una sede
+ * recibe como parametro el id de la sede
+ * Retorna un Gson con la informacion solicitada
  */
-@WebServlet(name = "Login", urlPatterns = {"/Login"})
-public class Login extends HttpServlet {
+
+@WebServlet(name = "PedirServicioDeSede", urlPatterns = {"/PedirServicioDeSede"})
+public class PedirServicioDeSede extends HttpServlet {
 
     @WebServiceRef(wsdlLocation = "http://192.168.40.1:8080/EsperApp/AsignarTurnos/AsignarTurnos?wsdl")
-    private AsignarTurnos_Service service_2;
-
-    
+    private AsignarTurnos_Service service;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,22 +47,15 @@ public class Login extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            String idSede = request.getParameter("idSede");
+            List<Servicio> respuesta = buscarServiciosSede(idSede);
+            //Type tipo = new TypeToken<List<Sede>>(){}.getType();
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String jsonRespuesta =  gson.toJson(respuesta);
+            System.out.println(jsonRespuesta);
+            out.write(jsonRespuesta);
             
-            
-            System.out.println("1:" + request.getParameter("nombre") +"2:"+request.getParameter("pass"));
-            Boolean aun;
-          //if(request.getParameter("nombre").equals("pepe@hotmail.com")&& request.getParameter("pass").equals("1234")){
-          if(aun = loginUsuario(request.getParameter("nombre"),request.getParameter("pass"))){   
-              //loginUsuario(request.getParameter("nombre"),request.getParameter("pass"));
-              out.append("{\"response\":\""+aun+"\"}");
-              //out.append("{\"response\":\"verdadero\"}");
-              System.out.println("respuesta: "+aun);
-              
-          }else{
-              System.out.println("respuesta: "+aun);
-              //out.append("{\"response\":\"falso\"}");
-              out.append("{\"response\":\""+aun+"\"}");
-          }
         }
     }
 
@@ -102,19 +98,17 @@ public class Login extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 /**
- * Funcion login usuario
- * Funcion que se conecta a la operacion del WebService encargada de verificar los datos del usuario en la base de datos 
- * @param correoId
- * @param contrasena
- * @return retorna un booleano del exito de la operacion 
+ * Funcion buscar servicios sede 
+ * Esta funcion se conecta al metodo del webservice que busca los servicios de acuerdo a un id de sede recibido por parmaetro
+ * @param codigoSede
+ * @return retorna una lista de servicios 
  */
-    private boolean loginUsuario(java.lang.String correoId, java.lang.String contrasena) {
+    private java.util.List<com.test.servlet.Servicio> buscarServiciosSede(java.lang.String codigoSede) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
-        com.test.servlet.AsignarTurnos port = service_2.getAsignarTurnosPort();
-        return port.loginUsuario(correoId, contrasena);
+        com.test.servlet.AsignarTurnos port = service.getAsignarTurnosPort();
+        return port.buscarServiciosSede(codigoSede);
     }
 
     
-
 }

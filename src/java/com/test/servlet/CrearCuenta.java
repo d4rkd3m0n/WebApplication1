@@ -17,6 +17,10 @@ import javax.xml.ws.WebServiceRef;
 /**
  *
  * @author Joako
+ * WebServlet Crear cuenta
+ * Llama una funcion del WebService y registra a un nuevo usuario en el sistema
+ * Recibe como parametro nombre, correo, contraseña
+ * Retorna un Gson 
  */
 @WebServlet(name = "CrearCuenta", urlPatterns = {"/CrearCuenta"})
 public class CrearCuenta extends HttpServlet {
@@ -89,7 +93,14 @@ public class CrearCuenta extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+/**
+ * Funcion registrar usuario
+ * Funcion que se conecta con el WebService, el cual registra un usuario en la base de datos
+ * @param nombre
+ * @param correoUsuario
+ * @param contrasena
+ * @return Retorna un booleano si la operacion fue exitosa o no 
+ */
     private boolean registrarUsuario(java.lang.String nombre, java.lang.String correoUsuario, java.lang.String contrasena) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.

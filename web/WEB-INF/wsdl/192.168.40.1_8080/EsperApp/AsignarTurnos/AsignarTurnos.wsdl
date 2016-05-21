@@ -50,6 +50,10 @@
 
   <xs:element name="BuscarSedesClaseResponse" type="tns:BuscarSedesClaseResponse"/>
 
+  <xs:element name="BuscarSedesClaseXEntidad" type="tns:BuscarSedesClaseXEntidad"/>
+
+  <xs:element name="BuscarSedesClaseXEntidadResponse" type="tns:BuscarSedesClaseXEntidadResponse"/>
+
   <xs:element name="BuscarServiciosSede" type="tns:BuscarServiciosSede"/>
 
   <xs:element name="BuscarServiciosSedeResponse" type="tns:BuscarServiciosSedeResponse"/>
@@ -307,6 +311,18 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="BuscarSedesClaseXEntidad">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nit" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BuscarSedesClaseXEntidadResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:sede"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="BuscarEntidadesNombres">
     <xs:sequence/>
   </xs:complexType>
@@ -446,6 +462,10 @@
     <wsdl:part element="tns:BuscarSede" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="BuscarSedesClaseXEntidadResponse">
+    <wsdl:part element="tns:BuscarSedesClaseXEntidadResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="loginAdmin">
     <wsdl:part element="tns:loginAdmin" name="parameters">
     </wsdl:part>
@@ -500,6 +520,10 @@
   </wsdl:message>
   <wsdl:message name="loginAdminResponse">
     <wsdl:part element="tns:loginAdminResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="BuscarSedesClaseXEntidad">
+    <wsdl:part element="tns:BuscarSedesClaseXEntidad" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="BuscarEntidadesNombres">
@@ -603,6 +627,12 @@
       <wsdl:input message="tns:AgregarServicio" name="AgregarServicio">
     </wsdl:input>
       <wsdl:output message="tns:AgregarServicioResponse" name="AgregarServicioResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarSedesClaseXEntidad">
+      <wsdl:input message="tns:BuscarSedesClaseXEntidad" name="BuscarSedesClaseXEntidad">
+    </wsdl:input>
+      <wsdl:output message="tns:BuscarSedesClaseXEntidadResponse" name="BuscarSedesClaseXEntidadResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="BuscarEntidadesNombres">
@@ -758,6 +788,15 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="AgregarServicioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarSedesClaseXEntidad">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="BuscarSedesClaseXEntidad">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="BuscarSedesClaseXEntidadResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
