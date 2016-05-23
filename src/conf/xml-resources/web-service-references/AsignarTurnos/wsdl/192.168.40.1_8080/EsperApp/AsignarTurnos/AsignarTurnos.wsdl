@@ -26,6 +26,10 @@
 
   <xs:element name="AsignarTurnoResponse" type="tns:AsignarTurnoResponse"/>
 
+  <xs:element name="AtenderCliente" type="tns:AtenderCliente"/>
+
+  <xs:element name="AtenderClienteResponse" type="tns:AtenderClienteResponse"/>
+
   <xs:element name="BuscarEmpleado" type="tns:BuscarEmpleado"/>
 
   <xs:element name="BuscarEmpleadoResponse" type="tns:BuscarEmpleadoResponse"/>
@@ -38,13 +42,9 @@
 
   <xs:element name="BuscarEntidadesNombresResponse" type="tns:BuscarEntidadesNombresResponse"/>
 
-  <xs:element name="BuscarSede" type="tns:BuscarSede"/>
-
   <xs:element name="BuscarSedeCodigo" type="tns:BuscarSedeCodigo"/>
 
   <xs:element name="BuscarSedeCodigoResponse" type="tns:BuscarSedeCodigoResponse"/>
-
-  <xs:element name="BuscarSedeResponse" type="tns:BuscarSedeResponse"/>
 
   <xs:element name="BuscarSedesClase" type="tns:BuscarSedesClase"/>
 
@@ -60,13 +60,29 @@
 
   <xs:element name="CambiarEstado" type="tns:CambiarEstado"/>
 
+  <xs:element name="EnviarNotificacion" type="tns:EnviarNotificacion"/>
+
+  <xs:element name="EnviarNotificacionResponse" type="tns:EnviarNotificacionResponse"/>
+
   <xs:element name="RegistrarUsuario" type="tns:RegistrarUsuario"/>
 
   <xs:element name="RegistrarUsuarioResponse" type="tns:RegistrarUsuarioResponse"/>
 
+  <xs:element name="buscarTurno" type="tns:buscarTurno"/>
+
+  <xs:element name="buscarTurnoResponse" type="tns:buscarTurnoResponse"/>
+
+  <xs:element name="cancelarTurno" type="tns:cancelarTurno"/>
+
+  <xs:element name="cancelarTurnoResponse" type="tns:cancelarTurnoResponse"/>
+
   <xs:element name="empleado" type="tns:empleado"/>
 
   <xs:element name="entidad" type="tns:entidad"/>
+
+  <xs:element name="enviarTrabajo" type="tns:enviarTrabajo"/>
+
+  <xs:element name="enviarTrabajoResponse" type="tns:enviarTrabajoResponse"/>
 
   <xs:element name="hello" type="tns:hello"/>
 
@@ -84,176 +100,46 @@
 
   <xs:element name="loginUsuarioResponse" type="tns:loginUsuarioResponse"/>
 
+  <xs:element name="receptor" type="tns:receptor"/>
+
   <xs:element name="sede" type="tns:sede"/>
 
   <xs:element name="servicio" type="tns:servicio"/>
 
-  <xs:complexType name="loginAdmin">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="idCorreo" type="xs:string"/>
-      <xs:element minOccurs="0" name="contra" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
+  <xs:element name="trabajo" type="tns:trabajo"/>
 
-  <xs:complexType name="loginAdminResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:boolean"/>
-    </xs:sequence>
-  </xs:complexType>
+  <xs:element name="turno" type="tns:turno"/>
 
-  <xs:complexType name="AgregarEmpleado">
+  <xs:element name="usuario" type="tns:usuario"/>
+
+  <xs:complexType name="AtenderCliente">
     <xs:sequence>
+      <xs:element minOccurs="0" name="idSede" type="xs:string"/>
       <xs:element minOccurs="0" name="cedula" type="xs:string"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="contrasena" type="xs:string"/>
-      <xs:element minOccurs="0" name="sede" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="AgregarEmpleadoResponse">
+  <xs:complexType name="AtenderClienteResponse">
     <xs:sequence>
-      <xs:element name="return" type="xs:boolean"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="AgregarReceptor">
+  <xs:complexType name="cancelarTurno">
     <xs:sequence>
-      <xs:element minOccurs="0" name="sede" type="xs:string"/>
-      <xs:element minOccurs="0" name="idServicio" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id_Turno" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="AgregarReceptorResponse">
+  <xs:complexType name="cancelarTurnoResponse">
     <xs:sequence>
-      <xs:element name="return" type="xs:int"/>
+      <xs:element minOccurs="0" name="return" type="xs:boolean"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="CambiarEstado">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id_Receptor" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="loginEmpleado">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="cedula" type="xs:string"/>
-      <xs:element minOccurs="0" name="contra" type="xs:string"/>
-      <xs:element minOccurs="0" name="sede" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="loginEmpleadoResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:boolean"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="BuscarEmpleado">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="cedula" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="BuscarEmpleadoResponse">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:empleado"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="empleado">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="contrasena" type="xs:string"/>
-      <xs:element minOccurs="0" name="empleadoPK" type="tns:empleadoPK"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="sede1" type="tns:sede"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="empleadoPK">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="cedula" type="xs:string"/>
-      <xs:element minOccurs="0" name="sede" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="sede">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="correoContacto" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" ref="tns:entidad"/>
-      <xs:element minOccurs="0" name="IDSede" type="xs:string"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="nombreContacto" type="xs:string"/>
-      <xs:element minOccurs="0" name="telefonoContacto" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="entidad">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="correoContacto" type="xs:string"/>
-      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
-      <xs:element minOccurs="0" name="IDNit" type="xs:string"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="nombreContacto" type="xs:string"/>
-      <xs:element minOccurs="0" name="telefonoContacto" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="BuscarServiciosSede">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="codigoSede" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="BuscarServiciosSedeResponse">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:servicio"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="servicio">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="idServicio" type="xs:string"/>
-      <xs:element minOccurs="0" ref="tns:sede"/>
-      <xs:element minOccurs="0" name="tipo" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="RegistrarUsuario">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Nombre" type="xs:string"/>
-      <xs:element minOccurs="0" name="CorreoUsuario" type="xs:string"/>
-      <xs:element minOccurs="0" name="contrasena" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="RegistrarUsuarioResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:boolean"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="BuscarSedesClase">
-    <xs:sequence/>
-  </xs:complexType>
-
-  <xs:complexType name="BuscarSedesClaseResponse">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:sede"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="loginUsuario">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="correoId" type="xs:string"/>
-      <xs:element minOccurs="0" name="contrasena" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="loginUsuarioResponse">
-    <xs:sequence>
-      <xs:element name="return" type="xs:boolean"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -311,28 +197,6 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="BuscarSedesClaseXEntidad">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="nit" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="BuscarSedesClaseXEntidadResponse">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:sede"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="BuscarEntidadesNombres">
-    <xs:sequence/>
-  </xs:complexType>
-
-  <xs:complexType name="BuscarEntidadesNombresResponse">
-    <xs:sequence>
-      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:entidad"/>
-    </xs:sequence>
-  </xs:complexType>
-
   <xs:complexType name="hello">
     <xs:sequence>
       <xs:element minOccurs="0" name="name" type="xs:string"/>
@@ -348,13 +212,274 @@
   <xs:complexType name="AsignarTurno">
     <xs:sequence>
       <xs:element minOccurs="0" name="CorreoUsuario" type="xs:string"/>
-      <xs:element minOccurs="0" name="Id_Sede" type="tns:sede"/>
+      <xs:element minOccurs="0" name="Id_Sede" type="xs:string"/>
+      <xs:element minOccurs="0" name="Id_Servicio" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 
   <xs:complexType name="AsignarTurnoResponse">
     <xs:sequence>
       <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EnviarNotificacion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idCorreo" type="xs:string"/>
+      <xs:element minOccurs="0" name="mensaje" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="EnviarNotificacionResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="loginAdmin">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idCorreo" type="xs:string"/>
+      <xs:element minOccurs="0" name="contra" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="loginAdminResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AgregarEmpleado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cedula" type="xs:string"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="contrasena" type="xs:string"/>
+      <xs:element minOccurs="0" name="sede" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AgregarEmpleadoResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AgregarReceptor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sede" type="xs:string"/>
+      <xs:element minOccurs="0" name="idServicio" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AgregarReceptorResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="enviarTrabajo">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="tns:trabajo"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="trabajo">
+    <xs:sequence>
+      <xs:element minOccurs="0" ref="tns:empleado"/>
+      <xs:element minOccurs="0" name="receptor" type="xs:string"/>
+      <xs:element minOccurs="0" name="receptor1" type="tns:receptor"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="empleado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="contrasena" type="xs:string"/>
+      <xs:element minOccurs="0" name="empleadoPK" type="tns:empleadoPK"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="sede1" type="tns:sede"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="empleadoPK">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cedula" type="xs:string"/>
+      <xs:element minOccurs="0" name="sede" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sede">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="correoContacto" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" ref="tns:entidad"/>
+      <xs:element minOccurs="0" name="IDSede" type="xs:string"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="nombreContacto" type="xs:string"/>
+      <xs:element minOccurs="0" name="telefonoContacto" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="entidad">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="correoContacto" type="xs:string"/>
+      <xs:element minOccurs="0" name="direccion" type="xs:string"/>
+      <xs:element minOccurs="0" name="IDNit" type="xs:string"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="nombreContacto" type="xs:string"/>
+      <xs:element minOccurs="0" name="telefonoContacto" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="receptor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="estado" type="xs:string"/>
+      <xs:element minOccurs="0" name="idReceptor" type="xs:string"/>
+      <xs:element minOccurs="0" name="idServicio" type="tns:servicio"/>
+      <xs:element minOccurs="0" ref="tns:sede"/>
+      <xs:element minOccurs="0" ref="tns:trabajo"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="servicio">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idServicio" type="xs:string"/>
+      <xs:element minOccurs="0" ref="tns:sede"/>
+      <xs:element minOccurs="0" name="tipo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="enviarTrabajoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:trabajo"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="loginEmpleado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cedula" type="xs:string"/>
+      <xs:element minOccurs="0" name="contra" type="xs:string"/>
+      <xs:element minOccurs="0" name="sede" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="loginEmpleadoResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BuscarEmpleado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cedula" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BuscarEmpleadoResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:empleado"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BuscarServiciosSede">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoSede" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BuscarServiciosSedeResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:servicio"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RegistrarUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="CorreoUsuario" type="xs:string"/>
+      <xs:element minOccurs="0" name="contrasena" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RegistrarUsuarioResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BuscarSedesClase">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="BuscarSedesClaseResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:sede"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="loginUsuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="correoId" type="xs:string"/>
+      <xs:element minOccurs="0" name="contrasena" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="loginUsuarioResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BuscarSedesClaseXEntidad">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nit" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BuscarSedesClaseXEntidadResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:sede"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarTurno">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="turno" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="buscarTurnoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:turno"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="turno">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="atendido" type="xs:string"/>
+      <xs:element minOccurs="0" name="fecha" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idTurno" type="xs:string"/>
+      <xs:element minOccurs="0" name="numTurno" type="xs:string"/>
+      <xs:element minOccurs="0" ref="tns:sede"/>
+      <xs:element minOccurs="0" name="servicioID" type="tns:servicio"/>
+      <xs:element minOccurs="0" ref="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="usuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="contrasena" type="xs:string"/>
+      <xs:element minOccurs="0" name="correoId" type="xs:string"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="BuscarEntidadesNombres">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="BuscarEntidadesNombresResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:entidad"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -375,27 +500,30 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="BuscarSede">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="CorreoUsuario" type="xs:string"/>
-      <xs:element minOccurs="0" name="Sede" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="BuscarSedeResponse">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="return" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
 </xs:schema>
   </wsdl:types>
+  <wsdl:message name="AtenderCliente">
+    <wsdl:part element="tns:AtenderCliente" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelarTurno">
+    <wsdl:part element="tns:cancelarTurno" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="CambiarEstado">
     <wsdl:part element="tns:CambiarEstado" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="AgregarEntidadResponse">
     <wsdl:part element="tns:AgregarEntidadResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelarTurnoResponse">
+    <wsdl:part element="tns:cancelarTurnoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="buscarTurnoResponse">
+    <wsdl:part element="tns:buscarTurnoResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="AgregarReceptorResponse">
@@ -410,12 +538,12 @@
     <wsdl:part element="tns:BuscarEntidad" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="loginUsuarioResponse">
-    <wsdl:part element="tns:loginUsuarioResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="AsignarTurnoResponse">
     <wsdl:part element="tns:AsignarTurnoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loginUsuarioResponse">
+    <wsdl:part element="tns:loginUsuarioResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="AgregarSede">
@@ -430,12 +558,20 @@
     <wsdl:part element="tns:BuscarSedeCodigoResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="enviarTrabajoResponse">
+    <wsdl:part element="tns:enviarTrabajoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="AgregarSedeResponse">
     <wsdl:part element="tns:AgregarSedeResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="helloResponse">
     <wsdl:part element="tns:helloResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="EnviarNotificacionResponse">
+    <wsdl:part element="tns:EnviarNotificacionResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="AgregarServicio">
@@ -454,16 +590,20 @@
     <wsdl:part element="tns:AsignarTurno" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="AtenderClienteResponse">
+    <wsdl:part element="tns:AtenderClienteResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="loginEmpleadoResponse">
     <wsdl:part element="tns:loginEmpleadoResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="BuscarSede">
-    <wsdl:part element="tns:BuscarSede" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="BuscarSedesClaseXEntidadResponse">
     <wsdl:part element="tns:BuscarSedesClaseXEntidadResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="EnviarNotificacion">
+    <wsdl:part element="tns:EnviarNotificacion" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="loginAdmin">
@@ -476,6 +616,10 @@
   </wsdl:message>
   <wsdl:message name="AgregarReceptor">
     <wsdl:part element="tns:AgregarReceptor" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="enviarTrabajo">
+    <wsdl:part element="tns:enviarTrabajo" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="AgregarEmpleadoResponse">
@@ -526,6 +670,10 @@
     <wsdl:part element="tns:BuscarSedesClaseXEntidad" name="parameters">
     </wsdl:part>
   </wsdl:message>
+  <wsdl:message name="buscarTurno">
+    <wsdl:part element="tns:buscarTurno" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="BuscarEntidadesNombres">
     <wsdl:part element="tns:BuscarEntidadesNombres" name="parameters">
     </wsdl:part>
@@ -538,15 +686,69 @@
     <wsdl:part element="tns:AgregarEntidad" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="BuscarSedeResponse">
-    <wsdl:part element="tns:BuscarSedeResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="BuscarEmpleadoResponse">
     <wsdl:part element="tns:BuscarEmpleadoResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:portType name="AsignarTurnos">
+    <wsdl:operation name="AtenderCliente">
+      <wsdl:input message="tns:AtenderCliente" name="AtenderCliente">
+    </wsdl:input>
+      <wsdl:output message="tns:AtenderClienteResponse" name="AtenderClienteResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelarTurno">
+      <wsdl:input message="tns:cancelarTurno" name="cancelarTurno">
+    </wsdl:input>
+      <wsdl:output message="tns:cancelarTurnoResponse" name="cancelarTurnoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambiarEstado">
+      <wsdl:input message="tns:CambiarEstado" name="CambiarEstado">
+    </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarEntidad">
+      <wsdl:input message="tns:BuscarEntidad" name="BuscarEntidad">
+    </wsdl:input>
+      <wsdl:output message="tns:BuscarEntidadResponse" name="BuscarEntidadResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarSede">
+      <wsdl:input message="tns:AgregarSede" name="AgregarSede">
+    </wsdl:input>
+      <wsdl:output message="tns:AgregarSedeResponse" name="AgregarSedeResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarSedeCodigo">
+      <wsdl:input message="tns:BuscarSedeCodigo" name="BuscarSedeCodigo">
+    </wsdl:input>
+      <wsdl:output message="tns:BuscarSedeCodigoResponse" name="BuscarSedeCodigoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarServicio">
+      <wsdl:input message="tns:AgregarServicio" name="AgregarServicio">
+    </wsdl:input>
+      <wsdl:output message="tns:AgregarServicioResponse" name="AgregarServicioResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="hello">
+      <wsdl:input message="tns:hello" name="hello">
+    </wsdl:input>
+      <wsdl:output message="tns:helloResponse" name="helloResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsignarTurno">
+      <wsdl:input message="tns:AsignarTurno" name="AsignarTurno">
+    </wsdl:input>
+      <wsdl:output message="tns:AsignarTurnoResponse" name="AsignarTurnoResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarNotificacion">
+      <wsdl:input message="tns:EnviarNotificacion" name="EnviarNotificacion">
+    </wsdl:input>
+      <wsdl:output message="tns:EnviarNotificacionResponse" name="EnviarNotificacionResponse">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="loginAdmin">
       <wsdl:input message="tns:loginAdmin" name="loginAdmin">
     </wsdl:input>
@@ -565,9 +767,11 @@
       <wsdl:output message="tns:AgregarReceptorResponse" name="AgregarReceptorResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CambiarEstado">
-      <wsdl:input message="tns:CambiarEstado" name="CambiarEstado">
+    <wsdl:operation name="enviarTrabajo">
+      <wsdl:input message="tns:enviarTrabajo" name="enviarTrabajo">
     </wsdl:input>
+      <wsdl:output message="tns:enviarTrabajoResponse" name="enviarTrabajoResponse">
+    </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="loginEmpleado">
       <wsdl:input message="tns:loginEmpleado" name="loginEmpleado">
@@ -605,34 +809,16 @@
       <wsdl:output message="tns:loginUsuarioResponse" name="loginUsuarioResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarEntidad">
-      <wsdl:input message="tns:BuscarEntidad" name="BuscarEntidad">
-    </wsdl:input>
-      <wsdl:output message="tns:BuscarEntidadResponse" name="BuscarEntidadResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AgregarSede">
-      <wsdl:input message="tns:AgregarSede" name="AgregarSede">
-    </wsdl:input>
-      <wsdl:output message="tns:AgregarSedeResponse" name="AgregarSedeResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="BuscarSedeCodigo">
-      <wsdl:input message="tns:BuscarSedeCodigo" name="BuscarSedeCodigo">
-    </wsdl:input>
-      <wsdl:output message="tns:BuscarSedeCodigoResponse" name="BuscarSedeCodigoResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AgregarServicio">
-      <wsdl:input message="tns:AgregarServicio" name="AgregarServicio">
-    </wsdl:input>
-      <wsdl:output message="tns:AgregarServicioResponse" name="AgregarServicioResponse">
-    </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="BuscarSedesClaseXEntidad">
       <wsdl:input message="tns:BuscarSedesClaseXEntidad" name="BuscarSedesClaseXEntidad">
     </wsdl:input>
       <wsdl:output message="tns:BuscarSedesClaseXEntidadResponse" name="BuscarSedesClaseXEntidadResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarTurno">
+      <wsdl:input message="tns:buscarTurno" name="buscarTurno">
+    </wsdl:input>
+      <wsdl:output message="tns:buscarTurnoResponse" name="buscarTurnoResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="BuscarEntidadesNombres">
@@ -641,33 +827,102 @@
       <wsdl:output message="tns:BuscarEntidadesNombresResponse" name="BuscarEntidadesNombresResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="hello">
-      <wsdl:input message="tns:hello" name="hello">
-    </wsdl:input>
-      <wsdl:output message="tns:helloResponse" name="helloResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AsignarTurno">
-      <wsdl:input message="tns:AsignarTurno" name="AsignarTurno">
-    </wsdl:input>
-      <wsdl:output message="tns:AsignarTurnoResponse" name="AsignarTurnoResponse">
-    </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="AgregarEntidad">
       <wsdl:input message="tns:AgregarEntidad" name="AgregarEntidad">
     </wsdl:input>
       <wsdl:output message="tns:AgregarEntidadResponse" name="AgregarEntidadResponse">
     </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarSede">
-      <wsdl:input message="tns:BuscarSede" name="BuscarSede">
-    </wsdl:input>
-      <wsdl:output message="tns:BuscarSedeResponse" name="BuscarSedeResponse">
-    </wsdl:output>
-    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="AsignarTurnosSoapBinding" type="tns:AsignarTurnos">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="AtenderCliente">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="AtenderCliente">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AtenderClienteResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CambiarEstado">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="CambiarEstado">
+        <soap:body use="literal"/>
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="cancelarTurno">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="cancelarTurno">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cancelarTurnoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarEntidad">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="BuscarEntidad">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="BuscarEntidadResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuscarSedeCodigo">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="BuscarSedeCodigo">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="BuscarSedeCodigoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarSede">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="AgregarSede">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AgregarSedeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AgregarServicio">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="AgregarServicio">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AgregarServicioResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="hello">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="hello">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="helloResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AsignarTurno">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="AsignarTurno">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="AsignarTurnoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EnviarNotificacion">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="EnviarNotificacion">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="EnviarNotificacionResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="loginAdmin">
       <soap:operation soapAction="" style="document"/>
       <wsdl:input name="loginAdmin">
@@ -695,11 +950,14 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CambiarEstado">
+    <wsdl:operation name="enviarTrabajo">
       <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="CambiarEstado">
+      <wsdl:input name="enviarTrabajo">
         <soap:body use="literal"/>
       </wsdl:input>
+      <wsdl:output name="enviarTrabajoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="loginEmpleado">
       <soap:operation soapAction="" style="document"/>
@@ -755,48 +1013,21 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="BuscarEntidad">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="BuscarEntidad">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="BuscarEntidadResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AgregarSede">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="AgregarSede">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="AgregarSedeResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="BuscarSedeCodigo">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="BuscarSedeCodigo">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="BuscarSedeCodigoResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AgregarServicio">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="AgregarServicio">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="AgregarServicioResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="BuscarSedesClaseXEntidad">
       <soap:operation soapAction="" style="document"/>
       <wsdl:input name="BuscarSedesClaseXEntidad">
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="BuscarSedesClaseXEntidadResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buscarTurno">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="buscarTurno">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="buscarTurnoResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
@@ -809,39 +1040,12 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="hello">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="hello">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="helloResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="AsignarTurno">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="AsignarTurno">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="AsignarTurnoResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="AgregarEntidad">
       <soap:operation soapAction="" style="document"/>
       <wsdl:input name="AgregarEntidad">
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="AgregarEntidadResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="BuscarSede">
-      <soap:operation soapAction="" style="document"/>
-      <wsdl:input name="BuscarSede">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="BuscarSedeResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
