@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,8 +22,8 @@ import javax.xml.ws.WebServiceRef;
  *
  * @author Joako
  */
-@WebServlet(name = "PedirTurno", urlPatterns = {"/PedirTurno"})
-public class PedirTurno extends HttpServlet {
+@WebServlet(name = "HistorialTurnos", urlPatterns = {"/HistorialTurnos"})
+public class HistorialTurnos extends HttpServlet {
 
     @WebServiceRef(wsdlLocation = "http://192.168.40.1:8080/EsperApp/AsignarTurnos/AsignarTurnos?wsdl")
     private AsignarTurnos_Service service;
@@ -41,12 +43,12 @@ public class PedirTurno extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String idCorreo = request.getParameter("idCorreo");
-            String idSede = request.getParameter("idSede");
-            String idServicio = request.getParameter("idServicio");
-            String turno = asignarTurno(idCorreo, idSede, idServicio);
-            Turno respuesta = buscarTurno(turno);
+            List<Turno> retorno = new ArrayList<Turno>();
+            System.out.println("correo web: "+idCorreo);
+            retorno = verHistorialTurnos(idCorreo);
+            
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String jsonRespuesta =  gson.toJson(respuesta);
+            String jsonRespuesta =  gson.toJson(retorno);
             System.out.println(jsonRespuesta);
             out.write(jsonRespuesta);
         }
@@ -91,18 +93,11 @@ public class PedirTurno extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private String asignarTurno(java.lang.String correoUsuario, java.lang.String idSede, java.lang.String idServicio) {
+    private java.util.List<com.test.servlet.Turno> verHistorialTurnos(java.lang.String idCorreo) {
         // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
         // If the calling of port operations may lead to race condition some synchronization is required.
         com.test.servlet.AsignarTurnos port = service.getAsignarTurnosPort();
-        return port.asignarTurno(correoUsuario, idSede, idServicio);
-    }
-
-    private Turno buscarTurno(java.lang.String turno) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        com.test.servlet.AsignarTurnos port = service.getAsignarTurnosPort();
-        return port.buscarTurno(turno);
+        return port.verHistorialTurnos(idCorreo);
     }
 
 }

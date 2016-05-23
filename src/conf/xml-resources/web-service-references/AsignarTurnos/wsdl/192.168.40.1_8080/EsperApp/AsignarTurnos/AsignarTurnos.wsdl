@@ -64,9 +64,17 @@
 
   <xs:element name="EnviarNotificacionResponse" type="tns:EnviarNotificacionResponse"/>
 
+  <xs:element name="RegistrarComoAtendido" type="tns:RegistrarComoAtendido"/>
+
+  <xs:element name="RegistrarComoAtendidoResponse" type="tns:RegistrarComoAtendidoResponse"/>
+
   <xs:element name="RegistrarUsuario" type="tns:RegistrarUsuario"/>
 
   <xs:element name="RegistrarUsuarioResponse" type="tns:RegistrarUsuarioResponse"/>
+
+  <xs:element name="VerHistorialTurnos" type="tns:VerHistorialTurnos"/>
+
+  <xs:element name="VerHistorialTurnosResponse" type="tns:VerHistorialTurnosResponse"/>
 
   <xs:element name="buscarTurno" type="tns:buscarTurno"/>
 
@@ -140,6 +148,19 @@
   <xs:complexType name="CambiarEstado">
     <xs:sequence>
       <xs:element minOccurs="0" name="Id_Receptor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RegistrarComoAtendido">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idTurno" type="xs:string"/>
+      <xs:element minOccurs="0" name="idReceptor" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RegistrarComoAtendidoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="xs:string"/>
     </xs:sequence>
   </xs:complexType>
 
@@ -416,6 +437,38 @@
     </xs:sequence>
   </xs:complexType>
 
+  <xs:complexType name="VerHistorialTurnos">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="idCorreo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="VerHistorialTurnosResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:turno"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="turno">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="atendido" type="xs:string"/>
+      <xs:element minOccurs="0" name="fecha" type="xs:dateTime"/>
+      <xs:element minOccurs="0" name="idTurno" type="xs:string"/>
+      <xs:element minOccurs="0" name="numTurno" type="xs:string"/>
+      <xs:element minOccurs="0" ref="tns:sede"/>
+      <xs:element minOccurs="0" name="servicioID" type="tns:servicio"/>
+      <xs:element minOccurs="0" ref="tns:usuario"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="usuario">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="contrasena" type="xs:string"/>
+      <xs:element minOccurs="0" name="correoId" type="xs:string"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
   <xs:complexType name="loginUsuario">
     <xs:sequence>
       <xs:element minOccurs="0" name="correoId" type="xs:string"/>
@@ -453,26 +506,6 @@
     </xs:sequence>
   </xs:complexType>
 
-  <xs:complexType name="turno">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="atendido" type="xs:string"/>
-      <xs:element minOccurs="0" name="fecha" type="xs:dateTime"/>
-      <xs:element minOccurs="0" name="idTurno" type="xs:string"/>
-      <xs:element minOccurs="0" name="numTurno" type="xs:string"/>
-      <xs:element minOccurs="0" ref="tns:sede"/>
-      <xs:element minOccurs="0" name="servicioID" type="tns:servicio"/>
-      <xs:element minOccurs="0" ref="tns:usuario"/>
-    </xs:sequence>
-  </xs:complexType>
-
-  <xs:complexType name="usuario">
-    <xs:sequence>
-      <xs:element minOccurs="0" name="contrasena" type="xs:string"/>
-      <xs:element minOccurs="0" name="correoId" type="xs:string"/>
-      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
-    </xs:sequence>
-  </xs:complexType>
-
   <xs:complexType name="BuscarEntidadesNombres">
     <xs:sequence/>
   </xs:complexType>
@@ -502,6 +535,86 @@
 
 </xs:schema>
   </wsdl:types>
+  <wsdl:message name="buscarTurnoResponse">
+    <wsdl:part element="tns:buscarTurnoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AgregarReceptorResponse">
+    <wsdl:part element="tns:AgregarReceptorResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RegistrarUsuarioResponse">
+    <wsdl:part element="tns:RegistrarUsuarioResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="VerHistorialTurnosResponse">
+    <wsdl:part element="tns:VerHistorialTurnosResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AsignarTurnoResponse">
+    <wsdl:part element="tns:AsignarTurnoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AgregarSede">
+    <wsdl:part element="tns:AgregarSede" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="helloResponse">
+    <wsdl:part element="tns:helloResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="hello">
+    <wsdl:part element="tns:hello" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="BuscarSedesClaseXEntidadResponse">
+    <wsdl:part element="tns:BuscarSedesClaseXEntidadResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="EnviarNotificacion">
+    <wsdl:part element="tns:EnviarNotificacion" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AgregarEmpleado">
+    <wsdl:part element="tns:AgregarEmpleado" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="enviarTrabajo">
+    <wsdl:part element="tns:enviarTrabajo" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AgregarEmpleadoResponse">
+    <wsdl:part element="tns:AgregarEmpleadoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="BuscarServiciosSedeResponse">
+    <wsdl:part element="tns:BuscarServiciosSedeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loginEmpleado">
+    <wsdl:part element="tns:loginEmpleado" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="AgregarServicioResponse">
+    <wsdl:part element="tns:AgregarServicioResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="RegistrarComoAtendidoResponse">
+    <wsdl:part element="tns:RegistrarComoAtendidoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="loginAdminResponse">
+    <wsdl:part element="tns:loginAdminResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="buscarTurno">
+    <wsdl:part element="tns:buscarTurno" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="BuscarEntidadesNombresResponse">
+    <wsdl:part element="tns:BuscarEntidadesNombresResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
   <wsdl:message name="AtenderCliente">
     <wsdl:part element="tns:AtenderCliente" name="parameters">
     </wsdl:part>
@@ -522,32 +635,16 @@
     <wsdl:part element="tns:cancelarTurnoResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="buscarTurnoResponse">
-    <wsdl:part element="tns:buscarTurnoResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="AgregarReceptorResponse">
-    <wsdl:part element="tns:AgregarReceptorResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="RegistrarUsuarioResponse">
-    <wsdl:part element="tns:RegistrarUsuarioResponse" name="parameters">
+  <wsdl:message name="RegistrarComoAtendido">
+    <wsdl:part element="tns:RegistrarComoAtendido" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="BuscarEntidad">
     <wsdl:part element="tns:BuscarEntidad" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="AsignarTurnoResponse">
-    <wsdl:part element="tns:AsignarTurnoResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="loginUsuarioResponse">
     <wsdl:part element="tns:loginUsuarioResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="AgregarSede">
-    <wsdl:part element="tns:AgregarSede" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="BuscarSedeCodigo">
@@ -566,20 +663,12 @@
     <wsdl:part element="tns:AgregarSedeResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="helloResponse">
-    <wsdl:part element="tns:helloResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="EnviarNotificacionResponse">
     <wsdl:part element="tns:EnviarNotificacionResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="AgregarServicio">
     <wsdl:part element="tns:AgregarServicio" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="hello">
-    <wsdl:part element="tns:hello" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="BuscarEntidadResponse">
@@ -598,40 +687,12 @@
     <wsdl:part element="tns:loginEmpleadoResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="BuscarSedesClaseXEntidadResponse">
-    <wsdl:part element="tns:BuscarSedesClaseXEntidadResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="EnviarNotificacion">
-    <wsdl:part element="tns:EnviarNotificacion" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="loginAdmin">
     <wsdl:part element="tns:loginAdmin" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="AgregarEmpleado">
-    <wsdl:part element="tns:AgregarEmpleado" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="AgregarReceptor">
     <wsdl:part element="tns:AgregarReceptor" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="enviarTrabajo">
-    <wsdl:part element="tns:enviarTrabajo" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="AgregarEmpleadoResponse">
-    <wsdl:part element="tns:AgregarEmpleadoResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="BuscarServiciosSedeResponse">
-    <wsdl:part element="tns:BuscarServiciosSedeResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="loginEmpleado">
-    <wsdl:part element="tns:loginEmpleado" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="BuscarEmpleado">
@@ -650,36 +711,24 @@
     <wsdl:part element="tns:BuscarSedesClase" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="loginUsuario">
-    <wsdl:part element="tns:loginUsuario" name="parameters">
+  <wsdl:message name="VerHistorialTurnos">
+    <wsdl:part element="tns:VerHistorialTurnos" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="AgregarServicioResponse">
-    <wsdl:part element="tns:AgregarServicioResponse" name="parameters">
+  <wsdl:message name="loginUsuario">
+    <wsdl:part element="tns:loginUsuario" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="BuscarSedesClaseResponse">
     <wsdl:part element="tns:BuscarSedesClaseResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="loginAdminResponse">
-    <wsdl:part element="tns:loginAdminResponse" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="BuscarSedesClaseXEntidad">
     <wsdl:part element="tns:BuscarSedesClaseXEntidad" name="parameters">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="buscarTurno">
-    <wsdl:part element="tns:buscarTurno" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="BuscarEntidadesNombres">
     <wsdl:part element="tns:BuscarEntidadesNombres" name="parameters">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="BuscarEntidadesNombresResponse">
-    <wsdl:part element="tns:BuscarEntidadesNombresResponse" name="parameters">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="AgregarEntidad">
@@ -706,6 +755,12 @@
     <wsdl:operation name="CambiarEstado">
       <wsdl:input message="tns:CambiarEstado" name="CambiarEstado">
     </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarComoAtendido">
+      <wsdl:input message="tns:RegistrarComoAtendido" name="RegistrarComoAtendido">
+    </wsdl:input>
+      <wsdl:output message="tns:RegistrarComoAtendidoResponse" name="RegistrarComoAtendidoResponse">
+    </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="BuscarEntidad">
       <wsdl:input message="tns:BuscarEntidad" name="BuscarEntidad">
@@ -803,6 +858,12 @@
       <wsdl:output message="tns:BuscarSedesClaseResponse" name="BuscarSedesClaseResponse">
     </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="VerHistorialTurnos">
+      <wsdl:input message="tns:VerHistorialTurnos" name="VerHistorialTurnos">
+    </wsdl:input>
+      <wsdl:output message="tns:VerHistorialTurnosResponse" name="VerHistorialTurnosResponse">
+    </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="loginUsuario">
       <wsdl:input message="tns:loginUsuario" name="loginUsuario">
     </wsdl:input>
@@ -857,6 +918,15 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="cancelarTurnoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistrarComoAtendido">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="RegistrarComoAtendido">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="RegistrarComoAtendidoResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
@@ -1001,6 +1071,15 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="BuscarSedesClaseResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerHistorialTurnos">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="VerHistorialTurnos">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="VerHistorialTurnosResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>

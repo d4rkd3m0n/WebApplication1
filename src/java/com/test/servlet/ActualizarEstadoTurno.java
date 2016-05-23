@@ -5,8 +5,6 @@
  */
 package com.test.servlet;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,17 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.WebServiceRef;
 
 /**
  *
  * @author Joako
  */
-@WebServlet(name = "PedirTurno", urlPatterns = {"/PedirTurno"})
-public class PedirTurno extends HttpServlet {
-
-    @WebServiceRef(wsdlLocation = "http://192.168.40.1:8080/EsperApp/AsignarTurnos/AsignarTurnos?wsdl")
-    private AsignarTurnos_Service service;
+@WebServlet(name = "ActualizarEstadoTurno", urlPatterns = {"/ActualizarEstadoTurno"})
+public class ActualizarEstadoTurno extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,15 +34,15 @@ public class PedirTurno extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            String idCorreo = request.getParameter("idCorreo");
-            String idSede = request.getParameter("idSede");
-            String idServicio = request.getParameter("idServicio");
-            String turno = asignarTurno(idCorreo, idSede, idServicio);
-            Turno respuesta = buscarTurno(turno);
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String jsonRespuesta =  gson.toJson(respuesta);
-            System.out.println(jsonRespuesta);
-            out.write(jsonRespuesta);
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ActualizarEstadoTurno</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ActualizarEstadoTurno at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -90,19 +84,5 @@ public class PedirTurno extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private String asignarTurno(java.lang.String correoUsuario, java.lang.String idSede, java.lang.String idServicio) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        com.test.servlet.AsignarTurnos port = service.getAsignarTurnosPort();
-        return port.asignarTurno(correoUsuario, idSede, idServicio);
-    }
-
-    private Turno buscarTurno(java.lang.String turno) {
-        // Note that the injected javax.xml.ws.Service reference as well as port objects are not thread safe.
-        // If the calling of port operations may lead to race condition some synchronization is required.
-        com.test.servlet.AsignarTurnos port = service.getAsignarTurnosPort();
-        return port.buscarTurno(turno);
-    }
 
 }
