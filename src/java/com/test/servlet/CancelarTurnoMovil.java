@@ -46,7 +46,7 @@ public class CancelarTurnoMovil extends HttpServlet {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
             String jsonRespuesta =  gson.toJson(respuesta);
             System.out.println(jsonRespuesta);
-            out.write(jsonRespuesta);
+            //out.write(jsonRespuesta);
         }
     }
 

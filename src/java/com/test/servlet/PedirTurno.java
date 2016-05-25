@@ -44,11 +44,11 @@ public class PedirTurno extends HttpServlet {
             String idSede = request.getParameter("idSede");
             String idServicio = request.getParameter("idServicio");
             String turno = asignarTurno(idCorreo, idSede, idServicio);
-            Turno respuesta = buscarTurno(turno);
+            //Turno respuesta = buscarTurno(turno);
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String jsonRespuesta =  gson.toJson(respuesta);
+            String jsonRespuesta =  gson.toJson(turno);
             System.out.println(jsonRespuesta);
-            out.write(jsonRespuesta);
+            out.append("{\"response\":\""+turno+"\"}");
         }
     }
 
